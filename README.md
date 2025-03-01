@@ -248,3 +248,84 @@ class Delivery:
 
     def get_delivery_address(self):
         return self._delivery_
+
+
+
+        #4
+
+
+        # Create Customer object
+customer = Customer(
+    customer_id="CUST123",
+    name="Sarah Johnson",
+    address="45 Knowledge Avenue, Dubai, UAE",
+    phone_number="123-456-7890",
+    email="sarah.johnson@example.com"
+)
+
+# Create Driver object
+driver = Driver(
+    driver_id="DRIVER456",
+    name="John Smith",
+    license_number="DL1234567890",
+    vehicle_type="Van",
+    phone_number="987-654-3210"
+)
+
+# Create SystemAdministrator object
+admin = SystemAdministrator(
+    admin_id="ADMIN789",
+    name="Jane Doe",
+    email="jane.doe@example.com",
+    phone_number="555-123-4567",
+    role="Senior Admin"
+)
+
+# Create Order object
+order = Order(
+    order_id="DEL123456789",
+    customer_id=customer.get_customer_id(),
+    order_date="January 25, 2025",
+    items=[
+        {"item_code": "KB123", "description": "Wireless Keyboard", "quantity": 1, "unit_price": 75.00},
+        {"item_code": "MS456", "description": "Wireless Mouse & Pad Set", "quantity": 1, "unit_price": 120.00},
+        {"item_code": "CP789", "description": "Laptop Cooling Pad", "quantity": 1, "unit_price": 50.00},
+        {"item_code": "CL012", "description": "Camera Lock", "quantity": 1, "unit_price": 25.00}
+    ],
+    total_amount=270.00,
+    delivery_address=customer.get_address()
+)
+
+# Create Delivery object
+delivery = Delivery(
+    delivery_id="DN-2025-001",
+    order_id=order.get_order_id(),
+    driver_id=driver.get_driver_id(),
+    delivery_date="January 25, 2025",
+    delivery_time="10:00 AM",
+    delivery_address=customer.get_address()
+)
+
+# (Note: Payment class is not used here since the diagram doesn't provide enough details)
+
+# Display Delivery Note
+print("Delivery Note\n")
+print("Thank you for your order!\n")
+print("Recipient Details:")
+print(f"Name: {customer.get_name()}")
+print(f"Contact: {customer.get_email()}")
+print(f"Delivery Address: {customer.get_address()}\n")
+print("Delivery Information:")
+print(f"Order Number: {order.get_order_id()}")
+print(f"Reference Number: {delivery.get_delivery_id()}")
+print(f"Delivery Date: {delivery.get_delivery_date()}")
+print(f"Delivery Method: Courier")  # Assuming delivery method
+print(f"Total Weight: 7 kg\n")  # Assuming total weight
+print("Summary of Items Delivered:")
+print("{:<15} {:<30} {:<10} {:<15} {:<15}".format("Item Code", "Description", "Quantity", "Unit Price (AED)", "Total Price (AED)"))
+for item in order.get_items():
+    total_price = item['quantity'] * item['unit_price']
+    print("{:<15} {:<30} {:<10} {:<15} {:<15}".format(item['item_code'], item['description'], item['quantity'], item['unit_price'], total_price))
+print(f"\nSubtotal: AED {order.get_total_amount():.2f}")
+print(f"Taxes and Fees: AED 13.50")  # Assuming taxes and fees
+print(f"Total Charges: AED 283.50")  # Assuming total charges
